@@ -37,23 +37,22 @@ std::vector<int> merge_sort_impl(const std::vector<int>& nums, int left, int rig
   // sort right
   std::vector<int> sorted_right =  merge_sort_impl(nums, mid + 1, right);
   // merge to a sorted vector
-  auto it_l = sorted_left.begin();
-  auto it_r = sorted_right.begin();
-  while(sorted_left.size() != 0 && sorted_right.size() != 0){
-    if(sorted_left[0] <= sorted_right[0]){
-      merged.push_back(sorted_left[0]);
-      it_l = sorted_left.erase(sorted_left.begin());
+  int i = 0;
+  int j = 0;
+  int length_l = sorted_left.size();
+  int length_r = sorted_right.size();
+
+  while(i < length_l && j < length_r){
+    if(sorted_left[i] <= sorted_right[j]){
+      merged.push_back(sorted_left[i]);
+      i++;
     }else{
-      merged.push_back(sorted_right[0]);
-      it_r = sorted_right.erase(sorted_right.begin());
+      merged.push_back(sorted_right[j]);
+      j++;
     }
   }
-  for(int i = 0;i < sorted_left.size();i++){
-    merged.push_back(sorted_left[i]);
-  }
-  for(int i = 0;i < sorted_right.size();i++){
-    merged.push_back(sorted_right[i]);
-  }
+  while(i < length_l){merged.push_back(sorted_left[i++]);}
+  while(j < length_r){merged.push_back(sorted_right[j++]);}
   return merged;
 }
 
